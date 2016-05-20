@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Thinktecture.IdentityServer.Core;
-using Thinktecture.IdentityServer.Core.Models;
+﻿using IdentityServer3.Core;
+using IdentityServer3.Core.Models;
+using System.Collections.Generic;
 
 namespace Host.Config
 {
@@ -47,7 +47,7 @@ namespace Host.Config
                         Type = ScopeType.Resource,
                         Emphasize = true,
                         ShowInDiscoveryDocument = false,
-                        
+
                         Claims = new List<ScopeClaim>
                         {
                             new ScopeClaim(Constants.ClaimTypes.Name),
@@ -55,6 +55,6 @@ namespace Host.Config
                         }
                     }
                 };
-        }  
+        }
     }
 }

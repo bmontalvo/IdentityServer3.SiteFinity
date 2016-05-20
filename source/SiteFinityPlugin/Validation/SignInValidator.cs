@@ -1,10 +1,9 @@
-﻿using System;
+﻿using IdentityServer.SiteFinity.Services;
+using IdentityServer3.Core.Logging;
+using System;
 using System.ComponentModel;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using IdentityServer.SiteFinity.Models;
-using IdentityServer.SiteFinity.Services;
-using Thinktecture.IdentityServer.Core.Logging;
 
 namespace IdentityServer.SiteFinity.Validation
 {
@@ -47,7 +46,7 @@ namespace IdentityServer.SiteFinity.Validation
             {
                 if (!subject.Identity.IsAuthenticated)
                 {
-                    LogError("Signout requested for user not signed in.",result);
+                    LogError("Signout requested for user not signed in.", result);
 
                     return new SignInValidationResult
                     {
@@ -67,7 +66,7 @@ namespace IdentityServer.SiteFinity.Validation
                 return result;
             }
 
-            
+
 
             var rp = await _siteFinityRelyingPartyService.GetByRealmAsync(message.Realm);
 
@@ -88,7 +87,7 @@ namespace IdentityServer.SiteFinity.Validation
             {
                 if (!string.IsNullOrWhiteSpace(rp.ReplyUrl))
                 {
-                    result.ReplyUrl = rp.ReplyUrl; 
+                    result.ReplyUrl = rp.ReplyUrl;
                 }
                 else
                 {
@@ -117,14 +116,14 @@ namespace IdentityServer.SiteFinity.Validation
 
         private void LogSuccess(SignInValidationResult result)
         {
-            var log = LogSerializer.Serialize(new SignInValidationLog(result));
-            Logger.InfoFormat("End WS-Federation signin request validation\n{0}", log);
+            // var log = LogSerializer.Serialize(new SignInValidationLog(result));
+            // Logger.InfoFormat("End WS-Federation signin request validation\n{0}", log);
         }
 
         private void LogError(string message, SignInValidationResult result)
         {
-            var log = LogSerializer.Serialize(new SignInValidationLog(result));
-            Logger.ErrorFormat("{0}\n{1}", message, log);
+            // var log = LogSerializer.Serialize(new SignInValidationLog(result));
+            // Logger.ErrorFormat("{0}\n{1}", message, log);
         }
 
         private string GetIssuerFromRequestUri(string absoluteUri)

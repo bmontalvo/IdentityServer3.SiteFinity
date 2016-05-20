@@ -1,7 +1,7 @@
-﻿using System.Net.Http;
+﻿using IdentityServer3.Core.Logging;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Thinktecture.IdentityServer.Core.Logging;
 
 namespace IdentityServer.SiteFinity.Configuration
 {
@@ -19,7 +19,7 @@ namespace IdentityServer.SiteFinity.Configuration
                 Body = await request.Content.ReadAsStringAsync()
             };
 
-            Logger.DebugFormat("HTTP Request\n{0}", LogSerializer.Serialize(reqLog));
+            // Logger.DebugFormat("HTTP Request\n{0}", LogSerializer.Serialize(reqLog));
 
             var response = await base.SendAsync(request, cancellationToken);
 
@@ -37,7 +37,7 @@ namespace IdentityServer.SiteFinity.Configuration
                 Body = body
             };
 
-            Logger.DebugFormat("HTTP Response\n{0}", LogSerializer.Serialize(respLog));
+            //   Logger.DebugFormat("HTTP Response\n{0}", LogSerializer.Serialize(respLog));
 
             return response;
         }

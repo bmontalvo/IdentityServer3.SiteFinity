@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IdentityServer.SiteFinity.Services;
+using IdentityServer3.Core.Configuration;
+using IdentityServer3.Core.Logging;
+using IdentityServer3.Core.Services;
+using System;
 using System.Collections.Generic;
-using IdentityServer.SiteFinity.Services;
-using Thinktecture.IdentityServer.Core.Configuration;
-using Thinktecture.IdentityServer.Core.Logging;
-using Thinktecture.IdentityServer.Core.Services;
 
 namespace IdentityServer.SiteFinity.Configuration
 {

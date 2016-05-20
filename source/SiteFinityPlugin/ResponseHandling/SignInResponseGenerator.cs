@@ -1,7 +1,11 @@
-﻿using System;
+﻿using IdentityServer.SiteFinity.Services;
+using IdentityServer.SiteFinity.Token;
+using IdentityServer.SiteFinity.Utilities;
+using IdentityServer.SiteFinity.Validation;
+using IdentityServer3.Core.Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -15,11 +19,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using IdentityServer.SiteFinity.Services;
-using IdentityServer.SiteFinity.Token;
-using IdentityServer.SiteFinity.Utilities;
-using IdentityServer.SiteFinity.Validation;
-using Thinktecture.IdentityServer.Core.Logging;
 
 namespace IdentityServer.SiteFinity.ResponseHandling
 {
@@ -50,14 +49,14 @@ namespace IdentityServer.SiteFinity.ResponseHandling
         /// <param name="result">The validation result</param>
         /// <param name="request">The original http request</param>
         /// <returns></returns>
-        public async Task<IHttpActionResult> GenerateResponseAsync(SignInRequestMessage message, SignInValidationResult result,HttpRequestMessage request)
+        public async Task<IHttpActionResult> GenerateResponseAsync(SignInRequestMessage message, SignInValidationResult result, HttpRequestMessage request)
         {
             Logger.Info("Creating SiteFinity signin response");
 
             var principal = new ClaimsPrincipal(result.Subject);
             var identity = ClaimsPrincipal.PrimaryIdentitySelector(principal.Identities);
 
-            var token =  CreateToken(identity.Name, identity.Claims, result);
+            var token = CreateToken(identity.Name, identity.Claims, result);
 
             NameValueCollection queryString;
             if (!String.IsNullOrEmpty(result.ReplyUrl))
@@ -78,20 +77,20 @@ namespace IdentityServer.SiteFinity.ResponseHandling
                 path = String.Concat(path, ToQueryString(queryString));
                 var uri = new Uri(new Uri(result.Realm), path);
 
-                var redirectResult = new RedirectResult(uri,request);
+                var redirectResult = new RedirectResult(uri, request);
                 return redirectResult;
             }
 
             queryString = new NameValueCollection();
             WrapSWT(queryString, token, message.Deflate);
 
-            var content = new StringContent(ToQueryString(queryString, false), Encoding.UTF8,"application/x-www-form-urlencoded");
-            var responseMessage = request.CreateResponse(HttpStatusCode.OK,content);
+            var content = new StringContent(ToQueryString(queryString, false), Encoding.UTF8, "application/x-www-form-urlencoded");
+            var responseMessage = request.CreateResponse(HttpStatusCode.OK, content);
             return new ResponseMessageResult(responseMessage);
 
         }
 
-        private SimpleWebToken CreateToken(string name,IEnumerable<Claim> claims, SignInValidationResult result)
+        private SimpleWebToken CreateToken(string name, IEnumerable<Claim> claims, SignInValidationResult result)
         {
 
             var key = this.HexToByte(result.SiteFinityRelyingParty.Key);
@@ -107,7 +106,7 @@ namespace IdentityServer.SiteFinity.ResponseHandling
             sb.AppendFormat("{0}={1}&", _httpUtility.UrlEncode(SitefinityClaimTypes.Domain), result.SiteFinityRelyingParty.Domain);
             sb.AppendFormat("{0}={1}&", _httpUtility.UrlEncode(SitefinityClaimTypes.AuthentificationMethod), _httpUtility.UrlEncode("http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/password"));
             sb.AppendFormat("{0}={1}&", _httpUtility.UrlEncode(SitefinityClaimTypes.AuthentificationInstant), DateTime.UtcNow);
-           
+
 
 
 
@@ -138,7 +137,7 @@ namespace IdentityServer.SiteFinity.ResponseHandling
                 unsignedToken,
                 _httpUtility.UrlEncode(Convert.ToBase64String(sig)));
 
-            return  _simpleWebTokenParser.GetToken(signedToken);
+            return _simpleWebTokenParser.GetToken(signedToken);
         }
 
         private byte[] HexToByte(string hexString)

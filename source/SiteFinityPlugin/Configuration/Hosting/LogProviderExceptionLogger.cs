@@ -1,7 +1,7 @@
-﻿using System.Threading;
+﻿using IdentityServer3.Core.Logging;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
-using Thinktecture.IdentityServer.Core.Logging;
 
 namespace IdentityServer.SiteFinity.Configuration.Hosting
 {

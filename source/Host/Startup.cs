@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using Host.Config;
+﻿using Host.Config;
 using IdentityServer.SiteFinity.Configuration;
 using IdentityServer.SiteFinity.Models;
 using IdentityServer.SiteFinity.Services;
+using IdentityServer3.Core.Configuration;
 using Owin;
-using Thinktecture.IdentityServer.Core.Configuration;
-using Thinktecture.IdentityServer.Core.Logging;
+using System.Collections.Generic;
 
 namespace Host
 {
@@ -13,26 +12,24 @@ namespace Host
     {
         public void Configuration(IAppBuilder app)
         {
-            LogProvider.SetCurrentLogProvider(new DiagnosticsTraceLogProvider());
-
             app.Map("/core", coreApp =>
-            {
-                var factory = InMemoryFactory.Create(
-                    users: Users.Get(),
-                    clients: Clients.Get(),
-                    scopes: Scopes.Get());
+         {
+             var factory = new IdentityServerServiceFactory()
+    .UseInMemoryUsers(Users.Get())
+    .UseInMemoryClients(Clients.Get())
+    .UseInMemoryScopes(Scopes.Get());
 
-                var options = new IdentityServerOptions
-                {
-                    SiteName = "IdentityServer3 with SiteFinity",
+             var options = new IdentityServerOptions
+             {
+                 SiteName = "IdentityServer3 with SiteFinity",
 
-                    SigningCertificate = Certificate.Get(),
-                    Factory = factory,
-                    PluginConfiguration = ConfigurePlugins,
-                };
+                 SigningCertificate = Certificate.Get(),
+                 Factory = factory,
+                 PluginConfiguration = ConfigurePlugins,
+             };
 
-                coreApp.UseIdentityServer(options);
-            });
+             coreApp.UseIdentityServer(options);
+         });
         }
 
         private void ConfigurePlugins(IAppBuilder pluginApp, IdentityServerOptions options)

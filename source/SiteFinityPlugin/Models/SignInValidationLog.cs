@@ -1,5 +1,5 @@
 ﻿using IdentityServer.SiteFinity.Validation;
-using Thinktecture.IdentityServer.Core.Extensions;
+using IdentityServer3.Core.Extensions;
 
 namespace IdentityServer.SiteFinity.Models
 {

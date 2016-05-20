@@ -1,20 +1,18 @@
-﻿using System;
-using System.ComponentModel;
-using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Results;
-using IdentityServer.SiteFinity.Configuration.Hosting;
+﻿using IdentityServer.SiteFinity.Configuration.Hosting;
 using IdentityServer.SiteFinity.ResponseHandling;
 using IdentityServer.SiteFinity.Services;
 using IdentityServer.SiteFinity.Utilities;
 using IdentityServer.SiteFinity.Validation;
-using Thinktecture.IdentityServer.Core;
-using Thinktecture.IdentityServer.Core.Extensions;
-using Thinktecture.IdentityServer.Core.Logging;
-using Thinktecture.IdentityServer.Core.Models;
+using IdentityServer3.Core;
+using IdentityServer3.Core.Extensions;
+using IdentityServer3.Core.Logging;
+using IdentityServer3.Core.Models;
+using System;
+using System.ComponentModel;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace IdentityServer.SiteFinity
 {
@@ -39,7 +37,7 @@ namespace IdentityServer.SiteFinity
         /// <param name="validator">The validator class</param>
         /// <param name="signInResponseGenerator">The response generator</param>
         /// <param name="httpUtility">The utily class used for url encoding and url decoding</param>
-        public SiteFinityController(SignInValidator validator, SignInResponseGenerator signInResponseGenerator,HttpUtility httpUtility)
+        public SiteFinityController(SignInValidator validator, SignInResponseGenerator signInResponseGenerator, HttpUtility httpUtility)
         {
             _validator = validator;
             _signInResponseGenerator = signInResponseGenerator;
@@ -79,11 +77,11 @@ namespace IdentityServer.SiteFinity
                 return BadRequest(result.Error);
             }
 
-            var responseMessage = await _signInResponseGenerator.GenerateResponseAsync(message, result,Request);
-            
+            var responseMessage = await _signInResponseGenerator.GenerateResponseAsync(message, result, Request);
+
             return responseMessage;
 
-            
+
         }
 
         private IHttpActionResult RedirectToLogin()

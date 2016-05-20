@@ -1,14 +1,14 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.WebApi;
 using IdentityServer.SiteFinity.ResponseHandling;
 using IdentityServer.SiteFinity.Token;
 using IdentityServer.SiteFinity.Utilities;
 using IdentityServer.SiteFinity.Validation;
+using IdentityServer3.Core.Configuration;
+using IdentityServer3.Core.Logging;
+using IdentityServer3.Core.Services;
 using Microsoft.Owin;
-using Thinktecture.IdentityServer.Core.Configuration;
-using Thinktecture.IdentityServer.Core.Logging;
-using Thinktecture.IdentityServer.Core.Services;
+using System;
 
 namespace IdentityServer.SiteFinity.Configuration.Hosting
 {

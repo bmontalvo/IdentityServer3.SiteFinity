@@ -1,10 +1,7 @@
-﻿using System;
+﻿using IdentityServer3.Core;
+using IdentityServer3.Core.Services.InMemory;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
-using Thinktecture.IdentityServer.Core;
-using Thinktecture.IdentityServer.Core.Services.InMemory;
 
 namespace Host.Config
 {
@@ -14,7 +11,7 @@ namespace Host.Config
         {
             return new List<InMemoryUser>
             {
-                new InMemoryUser{Subject = "1", Username = "Admin", Password = "secret", 
+                new InMemoryUser{Subject = "1", Username = "Admin", Password = "secret",
                     Claims = new Claim[]
                     {
                         new Claim(Constants.ClaimTypes.GivenName, "Admin"),

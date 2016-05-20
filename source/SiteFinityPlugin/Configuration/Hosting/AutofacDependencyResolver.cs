@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Thinktecture.IdentityServer.Core.Services;
+using IdentityServer3.Core.Services;
 
 namespace IdentityServer.SiteFinity.Configuration.Hosting
 {

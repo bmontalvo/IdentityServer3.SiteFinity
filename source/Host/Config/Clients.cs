@@ -1,8 +1,5 @@
-﻿using System;
+﻿using IdentityServer3.Core.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Thinktecture.IdentityServer.Core.Models;
 
 namespace Host.Config
 {

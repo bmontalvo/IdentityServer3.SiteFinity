@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Thinktecture.IdentityServer.Core.Logging;
+﻿using IdentityServer3.Core.Logging;
+using System.Diagnostics;
 
 namespace IdentityServer.SiteFinity.Configuration.Hosting
 {

@@ -1,5 +1,5 @@
-﻿using System;
-using Thinktecture.IdentityServer.Core.Configuration;
+﻿using IdentityServer3.Core.Configuration;
+using System;
 
 namespace IdentityServer.SiteFinity.Configuration
 {
@@ -49,7 +49,7 @@ namespace IdentityServer.SiteFinity.Configuration
         public SiteFinityPluginOptions(IdentityServerOptions options) : this()
         {
             if (options == null) throw new ArgumentNullException("options");
-            
+
             IdentityServerOptions = options;
             this.Factory = new SiteFinityServiceFactory(options.Factory);
         }
@@ -70,7 +70,7 @@ namespace IdentityServer.SiteFinity.Configuration
             {
                 throw new ArgumentNullException("Factory not configured");
             }
-            
+
             if (IdentityServerOptions == null)
             {
                 throw new ArgumentNullException("Options not configured");
